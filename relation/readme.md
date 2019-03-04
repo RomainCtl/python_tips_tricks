@@ -2,7 +2,7 @@
 
 ## Equality
 
-> See in file [equality.py](./relation/equality.py)
+> See in file [equality.py](./equality.py)
 
 ## ArrayManipulator
 
