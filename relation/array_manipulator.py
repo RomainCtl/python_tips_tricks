@@ -32,7 +32,7 @@ class ArrayManipulator:
 
     @staticmethod
     def project(tab, listattr):
-        return list(map(lambda item: {attr: item[attr] for attr in listattr}, tab))
+        return list(map(lambda item: {attr: item[attr] if attr in item else None for attr in listattr}, tab))
 
     @staticmethod
     def where(tab, cond):
