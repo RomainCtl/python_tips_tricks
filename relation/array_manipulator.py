@@ -5,7 +5,7 @@ class ArrayManipulator:
     def unique(tab):
         arr = []
         for i in range(len(tab)):
-            if len(list(filter(lambda item: item == tab[i], arr))) == 0:
+            if tab[i] not in arr:
                 arr.append(tab[i])
         return arr
 
@@ -17,17 +17,17 @@ class ArrayManipulator:
     def intersect(E, F):
         arr = []
         for i in range(len(E)):
-            if len(list(filter(lambda itemF: itemF = E[i], F))) > 0:
+            if E[i] in F and E[i] not in arr:
                 arr.append(E[i])
-        return ArrayManipulator.unique(arr)
+        return arr
 
     @staticmethod
     def minus(E, F):
         arr = []
         for i in range(len(E)):
-            if len(list(filter(lambda itemF: itemF == E[i], F))) == 0:
+            if E[i] not in F and E[i] not in arr:
                 arr.append(E[i])
-        return ArrayManipulator.unique(arr)
+        return arr
 
     @staticmethod
     def project(tab, listattr):
