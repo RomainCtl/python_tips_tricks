@@ -1,4 +1,3 @@
-from relation.equality import o_equals
 from functools import cmp_to_key
 
 class ArrayManipulator:
@@ -6,7 +5,7 @@ class ArrayManipulator:
     def unique(tab):
         arr = []
         for i in range(len(tab)):
-            if len(list(filter(lambda item: o_equals(item, tab[i]), arr))) == 0:
+            if len(list(filter(lambda item: item == tab[i], arr))) == 0:
                 arr.append(tab[i])
         return arr
 
@@ -18,7 +17,7 @@ class ArrayManipulator:
     def intersect(E, F):
         arr = []
         for i in range(len(E)):
-            if len(list(filter(lambda itemF: o_equals(itemF, E[i]), F))) > 0:
+            if len(list(filter(lambda itemF: itemF = E[i], F))) > 0:
                 arr.append(E[i])
         return ArrayManipulator.unique(arr)
 
@@ -26,7 +25,7 @@ class ArrayManipulator:
     def minus(E, F):
         arr = []
         for i in range(len(E)):
-            if len(list(filter(lambda itemF: o_equals(itemF, E[i]), F))) == 0:
+            if len(list(filter(lambda itemF: itemF == E[i], F))) == 0:
                 arr.append(E[i])
         return ArrayManipulator.unique(arr)
 
