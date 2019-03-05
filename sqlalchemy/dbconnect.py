@@ -2,7 +2,7 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from functools import wraps
-// from config import Config
+# from config import Config
 class Config:
     SQLALCHEMY_DATABASE_URI = 'mysql://username:password@host:port/schema'
     MYSQL_DATABASE_CHARSET = 'utf8'
