@@ -1,9 +1,5 @@
 # Examples
 
-## Equality
-
-> See in file [equality.py](./equality.py)
-
 ## ArrayManipulator
 
 > DB Relation manipulator
