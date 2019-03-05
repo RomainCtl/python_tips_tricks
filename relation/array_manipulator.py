@@ -80,7 +80,18 @@ class ArrayManipulator:
             FROM tab1
             FULL JOIN tab2 ON tab1.ck1 = tab2.ck2
         """
-        return ArrayManipulator.union(ArrayManipulator.left_join(tab1, tab2, ck1, ck2), ArrayManipulator.right_join(tab1, tab2, ck1, ck2))
+        res = tab1[:]
+        for e in tab2:
+            ids = [i for i in range(len(tab1)) if tab1[i][ck1] == e[ck2]]
+            if len(ids) > 0:
+                for id in ids:
+                    if tab1[id] in res:
+                        res[res.index(tab1[id])] = {**tab1[id], **e}
+                    else:
+                        res.append({**tab1[id], **e})
+            else:
+                res.append(e)
+        return res
 
     @staticmethod
     def left_join(tab1, tab2, ck1, ck2):
