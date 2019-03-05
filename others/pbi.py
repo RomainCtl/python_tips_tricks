@@ -7,10 +7,11 @@ class ProgressBarIterator(object):
     :param iterable: object to be iterated
     :type iterable: list or dict
     """
-    def __init__(self, iterable, prefix='', suffix='Complete'):
+    def __init__(self, iterable, prefix='', suffix='Complete', length = 50, fill = '█'):
         self.iterable = iterable
         self.current = 0
-        self.length = len(iterable)
+        self.length = length
+        self.fill = fill
 
         self.prefix = prefix
         self.suffix = suffix
@@ -20,7 +21,7 @@ class ProgressBarIterator(object):
         return self
 
     def __next__(self):
-        if self.length <= self.current: raise StopIteration
+        if len(self) <= self.current: raise StopIteration
         else:
             self.current+=1
             self.progress_bar(self.current)
@@ -51,7 +52,7 @@ class ProgressBarIterator(object):
         if type(self.iterable) is not dict: raise AttributeError("'%s' object has no attribute 'values'" % type(self.iterable))
         return self.iterable.values()
 
-    def progress_bar(self, iteration, length = 50, fill = '█'):
+    def progress_bar(self, iteration):
         """
         Function progress_bar.
 
@@ -61,8 +62,8 @@ class ProgressBarIterator(object):
         :params length: [Optional] character length of bar (Int)
         :params fill: [Optional] bar fill character (Str)
         """
-        percent = ("{0:.1f}").format(100 * (iteration / float(self.length)))
-        filledLength = int(length * iteration // self.length)
-        bar = fill * filledLength + '-' * (length - filledLength)
+        percent = ("{0:.1f}").format(100 * (iteration / float(len(self))))
+        filledLength = int(self.length * iteration // len(self))
+        bar = self.fill * filledLength + '-' * (self.length - filledLength)
         print('\r%s |%s| %s%% %s' % (self.prefix, bar, percent, self.suffix), end = '\r')
-        if iteration >= self.length: print()
+        if iteration >= len(self): print()
