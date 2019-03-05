@@ -32,6 +32,9 @@ class ProgressBarIterator(object):
     def __getitem__(self, key):
         return self.iterable[key]
 
+    def __len__(self,):
+        return len(self.iterable)
+
     def items(self):
         self.current = 0
         if type(self.iterable) is not dict: raise AttributeError("'%s' object has no attribute 'items'" % type(self.iterable))
