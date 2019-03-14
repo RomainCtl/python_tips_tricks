@@ -10,6 +10,11 @@ class ArrayManipulator:
         return arr
 
     @staticmethod
+    def unique_by_pk(tab, pk):
+        if type(pk) is str: pk = [pk]
+        return list({ "".join([v[p] if v[p] is not None else "" for p in pk]) : v for v in tab}.values())
+
+    @staticmethod
     def union(E, F):
         return ArrayManipulator.unique([*E, *F])
 
@@ -26,6 +31,15 @@ class ArrayManipulator:
         arr = []
         for i in range(len(E)):
             if E[i] not in F and E[i] not in arr:
+                arr.append(E[i])
+        return arr
+
+    @staticmethod
+    def minus_by_pk(E, F, pk):
+        if type(pk) is str: pk = [pk]
+        arr = []
+        for i in range(len(E)):
+            if ArrayManipulator.where(F, lambda t: all(E[i][p] == t[p] for p in pk)) == [] and E[i] not in arr:
                 arr.append(E[i])
         return arr
 
@@ -108,6 +122,8 @@ class ArrayManipulator:
                     res[res.index(tab1[id])] = {**tab1[id], **e}
                 else:
                     res.append({**tab1[id], **e})
+            for id in ids[::-1]:
+                tab1.pop(id)
         return res
 
     @staticmethod
@@ -146,4 +162,3 @@ class ArrayManipulator:
         fk = list(set(tab1[0].keys()) & set(tab2[0].keys())) # intersection of the keys of the tow tabs
         if len(fk) != 1: raise Exception("Error on natural join, relation not found !")
         return ArrayManipulator.full_join(tab1, tab2, fk[0], fk[0])
-
