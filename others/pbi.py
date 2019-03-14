@@ -20,6 +20,9 @@ class ProgressBarIterator(object):
         self.current = 0
         return self
 
+    def __str__(self):
+        return str(self.iterable)
+
     def __next__(self):
         if len(self) <= self.current: raise StopIteration
         else:
