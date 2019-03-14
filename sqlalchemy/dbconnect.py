@@ -23,6 +23,10 @@ def dbconnect(func):
             current_session.rollback()
             if len(e.args) > 0: res = dict(message=type(e).__name__ +": "+e.args[0]), e.args[1] if len(e.args) > 2 else 500
             else: res = dict(message=type(e).__name__ +": "+str(e)), 500
+                
+            # print traceback (may use a logger)
+            traceback.print_tb(e.__traceback__)
+            print(res['message'])
         finally:
             current_session.close()
             Session.remove()
