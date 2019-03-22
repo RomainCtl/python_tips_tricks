@@ -35,7 +35,7 @@ class Cases(Base):
     # if you need fictive relationship
     childs = db.relationship(Child,
                              foreign_keys = [ __table__.foo ],
-                             primaryjoin  = __table.c.foo == Child.id,
+                             primaryjoin  = __table__.c.foo == Child.id,
                              uselist = True)
     
     def __repr__(self):
@@ -58,7 +58,7 @@ for view in [Cases]:
 # To allow access to column like basic db.Model ('Cases.foo')
 for view in [Cases]:
     if not hasattr(view, '_sa_class_manager'):
-        orm.mapper(view, view.__view__)
+        orm.mapper(view, view.__table__)
         
         
 ## Query a view
